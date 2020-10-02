@@ -2,3 +2,6 @@ let = var start pas une MAJ AAAAAA!!!!!
 id = identifier  pour donner une 
 this =  self
 les ---;--- on les criss a fin des this. 
+
+tout les construction == def __init__(self)
+tout les function == def(self)
