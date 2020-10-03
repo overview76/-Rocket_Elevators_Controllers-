@@ -1,3 +1,5 @@
+//help loic rico chirst saravia jean-francois Taillefer Anthony pageau
+//===================== class elevator=========================/
 class Elevator {
     constructor(id, direction, status) {
         this.id = id;
@@ -6,30 +8,12 @@ class Elevator {
         this.doorStatus = "closed";
         this.floorLevel = 1;
         this.queueList = [];
-        this.doorSensor = false
         this.maximumWeight =null
     }
 
-    openDoors(elev) {
-        elev.doorStatus = 'open'
-        if (this.doorSensor = true && this.maximumWeight > 4000)
-            this.openDoors(elev)
-        else
-            closeDoors(elev);
-        console.log('doors are ' + elevator.doorStatus);
-    }
 
-
-    closeDoors(elev) {
-        elev.doorStatus = 'close'
-        if (this.doorSensor = false && this.maximumWeight < 4000)
-            this.closeDoors(elev)
-        else
-            openDoors(elev);
-    }
-
-    // How elevator will move
-    move(requestedFloor) {
+    //============================ controler==============================//
+    controler(requestedFloor) {
 
         while (this.floorLevel != this.queueList[0]) {
             if (this.floorLevel > this.queueList[0]) {
@@ -44,7 +28,7 @@ class Elevator {
         this.queueList.splice(0, 1);
     }  
 }
-
+//==========================================CallBTN OBJ==================================//
 class CallButton {
 
 }
@@ -80,7 +64,7 @@ class Column {
     //requesting elevator from outside button
     requestedElevator(requestedFloor, requestedDirection) {
         var bestElevator = this.findBestElevator(requestedFloor, requestedDirection);
-        bestElevator.move(requestedFloor);
+        bestElevator.controler(requestedFloor);
         console.log('The elevator has been requested ');
         return bestElevator;
     }
@@ -90,10 +74,10 @@ class Column {
         elevator.queueList.unshift(requestedFloor);
 
         if (requestedFloor < elevator.floorLevel) {
-            elevator.move(requestedFloor, 'down', 'moving')
+            elevator.controler(requestedFloor, 'down', 'moving')
         }
         if (requestedFloor > elevator.floorLevel) {
-            elevator.move(requestedFloor, 'up', 'moving')
+            elevator.controler(requestedFloor, 'up', 'moving')
             console.log('It is moving to the requested floor');
         }
     }
@@ -131,4 +115,27 @@ function scenario1() {
     column1.requestedFloor(r, 7)
     console.log('selected elevator is ')
 }
+
+
+function scenario2() {
+    var column2 = new Column(2, 10)
+    column2.elevatorList[0].elevatorStatus = "idle"
+    column2.elevatorList[0].floorLevel = 10
+    column2.elevatorList[1].elevatorStatus = "idle"
+    column2.elevatorList[1].floorLevel = 3
+    console.log('Button on 1st floor going up pressed')
+    var elevator1 = column2.requestedElevator(1, 'up')
+    console.log('Button to floor 6 requested inside elevator ' + elevator1.id)
+    column2.requestedFloor(elevator1, 6)
+    console.log('Button on 3rd floor going up pressed')
+
+    var elevator1 = column2.requestedElevator(3, 'up')
+    console.log('Button to floor 3 requested inside elevator ' + elevator1.id)
+    column2.requestedFloor(elevator1, 5)
+    console.log('Button on 9th floor going down pressed')
+    var elevator1 = column2.requestedElevator(9, 'down')
+    console.log('Button to floor 9 requested inside elevator ' + elevator1.id)
+    column2.requestedFloor(elevator1, 2)
+}
 scenario1()
+//scenario2(1)
